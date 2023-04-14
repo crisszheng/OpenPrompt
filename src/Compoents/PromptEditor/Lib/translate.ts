@@ -7,7 +7,7 @@ let cache: any = {}
 
 export async function translate(
     testList: string[],
-    options: { server: string } = { server: "http://localhost:19212/prompt-studio/translate" }
+    options: { server: string } = { server: "https://fanyi-brown.vercel.app" }
 ) {
     let resultList: string[][] = []
     let reqList: [string, number][] = []
