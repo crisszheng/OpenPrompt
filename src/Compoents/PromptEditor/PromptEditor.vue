@@ -32,10 +32,10 @@
                     {{ t("翻译服务：") }}
                 </div>
                 <select v-model="promptEditor.data.server">
-                    <option value="https://fanyi-1kexwmkiq-crisszheng.vercel.app">本地翻译接口</option>
-                    <option value="https://fanyi-1kexwmkiq-crisszheng.vercel.app">腾讯翻译</option>
-                    <option value="https://fanyi-1kexwmkiq-crisszheng.vercel.app">腾讯翻译 2</option>
-                    <option value="https://fanyi-1kexwmkiq-crisszheng.vercel.app" disabled>
+                    <option value="https://p.ohhai.top/translat">本地翻译接口</option>
+                    <option value="https://p.ohhai.top/translat">腾讯翻译</option>
+                    <option value="https://p.ohhai.top/translat">腾讯翻译 2</option>
+                    <option value="https://p.ohhai.top/translat" disabled>
                         OpenAI GPT-3.5 (WIP)
                     </option>
                 </select>
