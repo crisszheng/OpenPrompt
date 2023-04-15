@@ -3,8 +3,8 @@ import { PromptWork } from "./Sub/PromptWork"
 export class PromptEditorClass {
     data = {
         server : location.host.startsWith("localhost")
-            ? "https://p.ohhai.top/prompt-studio"
-            : "https://p.ohhai.top/prompt-studio",
+            ? "https://p.ohhai.top"
+            : "https://p.ohhai.top",
         enablePngExportFixed: false,
         enablePngExportCopy: false,
     }
