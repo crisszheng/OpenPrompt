@@ -7,7 +7,7 @@ let cache: any = {}
 
 export async function translate(
     testList: string[],
-    options: { server: string } = { server: "https://fanyi-brown.vercel.app" }
+    options: { server: string } = { server: "https://indexfs.moonvy.com:19213/prompt-studio" }
 ) {
     let resultList: string[][] = []
     let reqList: [string, number][] = []
@@ -22,7 +22,10 @@ export async function translate(
     })
 
     let rawText = reqList.map((req) => req[0]).join("\n")
-    let re = await axios.post(`${options.server}`, { text: rawText, to: "zh-cn" })
+    let re = await axios.post(`${options.server}`, { text: rawText, to: "zh-cn" },  
+        headers: {
+        Referer: 'https://moonvy.com/'
+     })
 
     if (re && re.data) {
         let list = re.data.split("\n")
