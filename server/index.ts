@@ -10,7 +10,7 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 
-app.post("/translate", async (req: any, res: any) => {
+app.post("/prompt-studio/translate/prompts", async (req: any, res: any) => {
     let input: { words: string[]; to: string } = req.body
     let orgText = input.words.join("\n")
     const finText = await translate({ text: orgText, to: input.to ?? "zh-cn", server: "tencent" })
