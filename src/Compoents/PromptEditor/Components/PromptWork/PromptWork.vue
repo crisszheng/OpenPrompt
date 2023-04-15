@@ -10,8 +10,8 @@
                 v-model="inputText"
                 placeholder="输入提示词"
                 rows="8"
-                @paste="onUserInput"
-                @input="onUserInput"
+                @paste="onUserInputDebounce"
+                @input="onUserInputDebounce"
                 @keydown.enter="onUserInputDebounce"
                 @change="onUserInputDebounce"
                 spellcheck="false"
@@ -80,7 +80,7 @@
                     <div class="PromptGroupTitle" v-if="promptWork.groups.length > 1">
                         <div class="name">
                             <input value="权重组" /> <span v-if="group.name">{{ group.name }}</span>
-                            <span class="groupLv" v-if="group.groupLv && group.groupLv > 1">{{ group.groupLv }}</span>
+                            <span class="groupLv" v-if="group.groupLv && group.groupLv != 1">{{ group.groupLv }}</span>
                         </div>
                     </div>
                     <PromptList
@@ -128,7 +128,6 @@
     border-bottom: 1px solid #d7d7d7;
     box-shadow: 0 1px 0 #ffffffeb;
     display: flex;
-
     .PromptGroup {
         .PromptGroupTitle {
             margin-left: calc(10px + var(--margin-left));
@@ -155,7 +154,6 @@
                     border-radius: 2px;
                     color: #736c81;
                 }
-
                 input {
                     color: #757985a3;
                     text-shadow: 0 1px #ffffff7d;
@@ -170,7 +168,6 @@
             }
         }
     }
-
     .PromptList {
         display: flex;
         > .list {
@@ -195,19 +192,16 @@
             .name {
                 padding-top: var(--padding-2);
                 background: transparent;
-
                 overflow: hidden;
                 white-space: nowrap;
             }
         }
-
         .AddButton {
             display: none;
             position: absolute;
             right: 0;
             top: 0;
         }
-
         &:hover {
             .AddButton {
                 display: inline-flex;
@@ -238,7 +232,6 @@
                 }
             }
         }
-
         &:nth-of-type(2) .name-bar .name {
             border-radius: 4px 4px 0 0;
             margin-top: 4px;
@@ -253,14 +246,12 @@
             margin-top: 4px;
         }
     }
-
     .AddArea {
         display: flex;
         flex-direction: column;
         flex: none;
         width: 320px;
         margin-left: 20px;
-
         > * {
             transition: all 0.2s ease;
         }
@@ -282,7 +273,6 @@
                 color: #7a8b7e;
             }
         }
-
         .options {
             display: flex;
             margin-top: 12px;
@@ -300,7 +290,6 @@
                 padding: 6px 12px;
                 flex: none;
                 align-items: center;
-
                 &:hover {
                     background: #d6d6d6;
                 }
@@ -334,12 +323,10 @@
                     }
                 }
             }
-
             .parser-select {
                 margin-left: auto;
                 width: 150px;
             }
-
             .more-options {
                 margin-top: auto;
                 .parser-select {
@@ -392,7 +379,6 @@
             outline: none;
             box-shadow: 0 0 0 2px rgb(183 183 183);
         }
-
         &::-webkit-scrollbar {
             width: 12px;
             height: 12px;
@@ -404,7 +390,6 @@
             border: 2px solid #e9e9e9;
         }
     }
-
     &.isPNGExporting {
         .PromptItem.disabled {
             display: none;
@@ -430,7 +415,6 @@ import { getImageSize } from "html-to-image/src/util"
 import download from "downloadjs"
 import { PromptList } from "../../Sub/PromptList"
 import vPromptMenu from "../PromptMenu/PromptMenu.vue"
-
 export default Vue.extend({
     props: {
         promptWork: { type: Object as PropType<PromptWork>, required: true },
@@ -525,19 +509,16 @@ export default Vue.extend({
             try {
                 let el = <any>this.$refs.main
                 let { width, height } = getImageSize(el)
-
                 let scale = options?.scale ?? 1
                 if (enablePngExportFixed) width = 1240
                 width = width * scale
                 height = height * scale
-
                 let re = await toBlob(el, {
                     width,
                     height,
                     style: { transform: `scale(${scale})`, transformOrigin: "top left" },
                 })
                 this.isPNGExporting = false
-
                 if (enablePngExportCopy) {
                     copyBlobToClipboard(re!)
                 } else {
@@ -548,16 +529,13 @@ export default Vue.extend({
                 this.isPNGExporting = false
             }
         },
-
         doAddNewByList(promptList: PromptList, data: any) {
             let item = promptList.pushPrompt("", data)
             item.state.isEdit = "text"
         },
-
         doOpenItemMenu(options: { item: PromptItem; el: any; event: any }, promptList: PromptList) {
             ;(this.$refs as any).menu.open({ ...options, promptList })
         },
-
         onWorkClick() {
             let els = document.body.querySelectorAll(".PromptWork")
             els.forEach((el) => el.classList.toggle("active", false))
