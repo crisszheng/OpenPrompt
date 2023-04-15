@@ -3,8 +3,8 @@ import { PromptWork } from "./Sub/PromptWork"
 export class PromptEditorClass {
     data = {
         server : location.host.startsWith("localhost")
-            ? "https://p.ohhai.top:3000"
-            : "https://p.ohhai.top:3000",
+            ? "https://fanyi-brown.vercel.app"
+            : "https://fanyi-brown.vercel.app",
         enablePngExportFixed: false,
         enablePngExportCopy: false,
     }
